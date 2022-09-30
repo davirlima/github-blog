@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const SearchPublicationsContainer = styled.form`
+export const SearchPublicationsContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -32,6 +32,7 @@ export const SearchPublicationsContainer = styled.form`
       background: ${(props) => props.theme.color["base-input"]};
       border: 1px solid ${(props) => props.theme.color["base-border"]};
       border-radius: 6px;
+      color: ${(props) => props.theme.color["base-text"]};
 
       &::placeholder {
         color: ${(props) => props.theme.color["base-label"]};
