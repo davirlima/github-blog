@@ -19,7 +19,7 @@ export const defaultTheme = {
 
   text: {
     "title-large": "1.5rem",
-    "tilte-medium": "1.25rem",
+    "title-medium": "1.25rem",
     "title-short": "1.125rem",
 
     "text-medium": "1rem",
