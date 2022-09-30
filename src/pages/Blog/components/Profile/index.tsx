@@ -10,6 +10,7 @@ import {
 } from "./styles";
 import { api } from "../../../../lib/axios";
 import { useCallback, useEffect, useState } from "react";
+import { username } from "../../../../data/githubInformation";
 
 interface UserInformationData {
   avatar_url: string;
@@ -27,7 +28,7 @@ export function Profile() {
   );
 
   const fetchUserInformation = useCallback(async () => {
-    const response = await api.get("/users/davirlima");
+    const response = await api.get(`/users/${username}`);
     setUserInformation(response.data);
   }, [userInformation]);
 

@@ -1,18 +1,45 @@
+import { useCallback, useEffect, useState } from "react";
+import { repository, username } from "../../data/githubInformation";
+import { api } from "../../lib/axios";
 import { PostPreview } from "./components/PostPreview";
 import { Profile } from "./components/Profile";
 import { SearchPublications } from "./components/SearchPublications";
 import { BlogContainer, PostsPreviewContainer } from "./styles";
 
+interface PostsData {
+  created_at: string;
+  updated_at: string;
+  title: string;
+  body: string;
+}
+
 export function Blog() {
-  const size = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const [posts, setPosts] = useState<PostsData[]>([]);
+
+  const fetchPosts = useCallback(
+    async (search?: string) => {
+      const getParameter = search
+        ? `/search/issues?q=${search}%20repo:${username}/${repository}`
+        : `/search/issues?q=%20repo:${username}/${repository}`;
+
+      const response = await api.get(getParameter);
+
+      setPosts(response.data.items);
+    },
+    [posts]
+  );
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
   return (
     <div>
       <Profile />
       <BlogContainer>
         <SearchPublications />
         <PostsPreviewContainer>
-          {size.map((position) => {
-            return <PostPreview key={position} />;
+          {posts.map((post) => {
+            return <PostPreview key={post.created_at} post={post} />;
           })}
         </PostsPreviewContainer>
       </BlogContainer>
