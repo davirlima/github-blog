@@ -21,6 +21,11 @@ export const ProfileContainer = styled.aside`
     height: 9.25rem;
     border-radius: 8px;
   }
+
+  @media screen and (max-width: 659px) {
+    flex-direction: column;
+    text-align: center;
+  }
 `;
 
 export const ProfileContent = styled.div`
@@ -47,6 +52,15 @@ export const ProfileContent = styled.div`
       border-bottom: 1px solid ${(props) => props.theme.color["blue"]};
     }
   }
+
+  @media screen and (max-width: 425px) {
+    position: static;
+    a {
+      position: static;
+      display: block;
+      text-align: center;
+    }
+  }
 `;
 
 export const UserDescription = styled.div`
@@ -62,6 +76,7 @@ export const UserDescription = styled.div`
 
 export const UserInformation = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 1.5rem;
 
   h2 {
@@ -70,5 +85,9 @@ export const UserInformation = styled.div`
     align-items: center;
     font-size: ${(props) => props.theme.text["text-medium"]};
     font-weight: 400;
+  }
+
+  @media screen and (max-width: 659px) {
+    justify-content: center;
   }
 `;
