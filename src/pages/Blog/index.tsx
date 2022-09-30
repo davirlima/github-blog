@@ -8,7 +8,6 @@ import { BlogContainer, PostsPreviewContainer } from "./styles";
 
 interface PostsData {
   created_at: string;
-  updated_at: string;
   title: string;
   body: string;
 }

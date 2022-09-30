@@ -30,6 +30,7 @@ export const PostsPreviewContainer = styled.div`
     span {
       font-size: ${(props) => props.theme.text["text-short"]};
       color: ${(props) => props.theme.color["base-span"]};
+      text-align: right;
     }
   }
 
