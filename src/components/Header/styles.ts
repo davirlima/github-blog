@@ -12,6 +12,8 @@ export const HeaderContainer = styled.header`
   align-items: center;
   justify-content: center;
 
+  z-index: -1;
+
   img {
     margin-bottom: 2.875rem;
   }

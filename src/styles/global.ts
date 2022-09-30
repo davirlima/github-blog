@@ -13,7 +13,8 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     a{
-        font-size: ${(props) => props.theme.text["link"]}; 
+        font-size: ${(props) => props.theme.text["link"]};
+        text-decoration: none;
     }
 
     body{
