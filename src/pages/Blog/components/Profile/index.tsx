@@ -8,35 +8,61 @@ import {
   UserDescription,
   UserInformation,
 } from "./styles";
+import { api } from "../../../../lib/axios";
+import { useCallback, useEffect, useState } from "react";
+
+interface UserInformationData {
+  avatar_url: string;
+  html_url: string;
+  name: string;
+  bio: string;
+  login: string;
+  company: string;
+  followers: string;
+}
 
 export function Profile() {
+  const [userInformation, setUserInformation] = useState<UserInformationData>(
+    {} as UserInformationData
+  );
+
+  const fetchUserInformation = useCallback(async () => {
+    const response = await api.get("/users/davirlima");
+    setUserInformation(response.data);
+  }, [userInformation]);
+
+  useEffect(() => {
+    fetchUserInformation();
+  }, []);
+
   return (
     <ProfileContainer>
-      <img src="https://github.com/davirlima.png" />
+      <img src={userInformation.avatar_url} />
       <ProfileContent>
-        <a href="https://github.com/davirlima" target="_blank">
+        <a href={userInformation.html_url} target="_blank">
           GITHUB
           <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
         </a>
 
         <UserDescription>
-          <h1>Davi Lima</h1>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla,
-            laboriosam molestias. Ad excepturi quidem nesciunt ipsa unde,
-            recusandae aut maxime?
-          </p>
+          <h1>{userInformation.name}</h1>
+          <p>{userInformation.bio}</p>
         </UserDescription>
 
         <UserInformation>
           <h2>
-            <FontAwesomeIcon icon={faGithub} color="#3A536B" /> davirlima
+            <FontAwesomeIcon icon={faGithub} color="#3A536B" />{" "}
+            {userInformation.login}
           </h2>
+          {userInformation.company && (
+            <h2>
+              <FontAwesomeIcon icon={faBuilding} color="#3A536B" />{" "}
+              {userInformation.company}
+            </h2>
+          )}
           <h2>
-            <FontAwesomeIcon icon={faBuilding} color="#3A536B" /> Estudante
-          </h2>
-          <h2>
-            <FontAwesomeIcon icon={faUserGroup} color="#3A536B" /> 32 seguidores
+            <FontAwesomeIcon icon={faUserGroup} color="#3A536B" />{" "}
+            {userInformation.followers} seguidores
           </h2>
         </UserInformation>
       </ProfileContent>
