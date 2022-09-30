@@ -36,7 +36,10 @@ export function Blog() {
     <div>
       <Profile />
       <BlogContainer>
-        <SearchPublications />
+        <SearchPublications
+          quantityOfPublications={posts.length}
+          fetchPosts={fetchPosts}
+        />
         <PostsPreviewContainer>
           {posts.map((post) => {
             return <PostPreview key={post.created_at} post={post} />;
