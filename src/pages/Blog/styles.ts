@@ -14,4 +14,9 @@ export const PostsPreviewContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
+
+  @media screen and (max-width: 864px) {
+    grid-template-columns: auto;
+    justify-content: center;
+  }
 `;

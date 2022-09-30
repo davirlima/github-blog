@@ -44,4 +44,14 @@ export const PostsPreviewContainer = styled.div`
     transition: border-color 0.2s;
     border: 2px solid ${(props) => props.theme.color["base-label"]};
   }
+
+  @media screen and (max-width: calc(416px + 2rem)) {
+    width: 100%;
+    text-align: center;
+
+    header {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
 `;
