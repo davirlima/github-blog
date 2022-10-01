@@ -10,6 +10,7 @@ interface PostsData {
   created_at: string;
   title: string;
   body: string;
+  number: number;
 }
 
 export function Blog() {

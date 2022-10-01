@@ -1,5 +1,6 @@
 import { formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { NavLink } from "react-router-dom";
 import { PostsPreviewContainer } from "./styles";
 
 interface PostsPreviewProps {
@@ -7,6 +8,7 @@ interface PostsPreviewProps {
     created_at: string;
     title: string;
     body: string;
+    number: number;
   };
 }
 
@@ -18,12 +20,14 @@ export function PostPreview({ post }: PostsPreviewProps) {
   });
 
   return (
-    <PostsPreviewContainer>
-      <header>
-        <h1>{post.title}</h1>
-        <span>{formattedPublishedDate}</span>
-      </header>
-      <p>{post.body}</p>
-    </PostsPreviewContainer>
+    <NavLink to={`/post/${post.number}`}>
+      <PostsPreviewContainer>
+        <header>
+          <h1>{post.title}</h1>
+          <span>{formattedPublishedDate}</span>
+        </header>
+        <p>{post.body}</p>
+      </PostsPreviewContainer>
+    </NavLink>
   );
 }

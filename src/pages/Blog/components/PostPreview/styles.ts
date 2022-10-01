@@ -41,6 +41,7 @@ export const PostsPreviewContainer = styled.div`
     max-height: 7rem;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: ${(props) => props.theme.color["base-text"]};
   }
 
   &:hover {

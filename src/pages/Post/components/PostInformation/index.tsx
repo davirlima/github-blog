@@ -6,15 +6,36 @@ import {
   faComment,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { formatDistanceToNow } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { NavLink } from "react-router-dom";
 import {
   HeaderContainer,
-  Informations,
+  PostDetails,
   PostInformationContainer,
   PostInformationContent,
 } from "./styles";
 
-export function PostInformation() {
+interface PostInformationProps {
+  information: {
+    html_url: string;
+    title: string;
+    user: {
+      login: string;
+    };
+    comments: number;
+    created_at: string;
+    body: string;
+  };
+}
+
+export function PostInformation({ information }: PostInformationProps) {
+  const publishedDate = new Date(information.created_at);
+  const formattedPublishedDate = formatDistanceToNow(publishedDate, {
+    addSuffix: true,
+    locale: ptBR,
+  });
+
   return (
     <PostInformationContainer>
       <HeaderContainer>
@@ -23,26 +44,29 @@ export function PostInformation() {
           VOLTAR
         </NavLink>
 
-        <a href={""} target="_blank">
+        <a href={information.html_url} target="_blank">
           VER NO GITHUB
           <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
         </a>
       </HeaderContainer>
 
       <PostInformationContent>
-        <h1>JavaScript data types and data structures</h1>
+        <h1>{information.title}</h1>
 
-        <Informations>
+        <PostDetails>
           <h2>
-            <FontAwesomeIcon icon={faGithub} color="#3A536B" /> davirlima
+            <FontAwesomeIcon icon={faGithub} color="#3A536B" />{" "}
+            {information.user.login}
           </h2>
           <h2>
-            <FontAwesomeIcon icon={faCalendarDay} color="#3A536B" /> Há 1 dia
+            <FontAwesomeIcon icon={faCalendarDay} color="#3A536B" />{" "}
+            {formattedPublishedDate}
           </h2>
           <h2>
-            <FontAwesomeIcon icon={faComment} color="#3A536B" /> 5 comentários
+            <FontAwesomeIcon icon={faComment} color="#3A536B" />{" "}
+            {information.comments} comentários
           </h2>
-        </Informations>
+        </PostDetails>
       </PostInformationContent>
     </PostInformationContainer>
   );

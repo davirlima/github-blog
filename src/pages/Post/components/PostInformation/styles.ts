@@ -60,7 +60,7 @@ export const PostInformationContent = styled.div`
   }
 `;
 
-export const Informations = styled.div`
+export const PostDetails = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
