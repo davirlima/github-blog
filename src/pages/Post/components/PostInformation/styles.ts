@@ -1,15 +1,16 @@
 import styled from "styled-components";
 
-export const ProfileContainer = styled.aside`
+export const PostInformationContainer = styled.aside`
   width: 100%;
-  min-height: 13.25rem;
+  min-height: 10.5rem;
   padding: 2rem 2.5rem;
 
   margin-top: -5.5rem;
 
   display: flex;
-  align-items: center;
-  gap: 2rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
 
   background: ${(props) => props.theme.color["base-profile"]};
   border-radius: 10px;
@@ -28,18 +29,13 @@ export const ProfileContainer = styled.aside`
   }
 `;
 
-export const ProfileContent = styled.div`
-  position: relative;
+export const HeaderContainer = styled.header`
+  width: 100%;
 
   display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  justify-content: space-between;
 
   a {
-    position: absolute;
-    top: 0;
-    right: 0;
-
     display: flex;
     gap: 0.5rem;
     align-items: center;
@@ -52,39 +48,29 @@ export const ProfileContent = styled.div`
       border-bottom: 1px solid ${(props) => props.theme.color["blue"]};
     }
   }
-
-  @media screen and (max-width: 425px) {
-    position: static;
-    a {
-      position: static;
-      display: block;
-      text-align: center;
-    }
-  }
 `;
 
-export const UserDescription = styled.div`
+export const PostInformationContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 
   h1 {
     color: ${(props) => props.theme.color["base-title"]};
-    font-size: ${(props) => props.theme.text["title-large"]};
   }
 `;
 
-export const UserInformation = styled.div`
+export const Informations = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem;
+  gap: 2rem;
 
   h2 {
     display: flex;
     gap: 0.5rem;
     align-items: center;
     font-size: ${(props) => props.theme.text["text-medium"]};
-    color: ${(props) => props.theme.color["base-subtitle"]};
+    color: ${(props) => props.theme.color["base-span"]};
     font-weight: 400;
   }
 
