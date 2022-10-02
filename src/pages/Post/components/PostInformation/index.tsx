@@ -6,9 +6,9 @@ import {
   faComment,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { formatDistanceToNow } from "date-fns";
-import { ptBR } from "date-fns/locale";
 import { NavLink } from "react-router-dom";
+import { dateFormatDistanceToNow } from "../../../../util/formatter";
+import { PostData } from "../../../../@types/postInterface";
 import {
   HeaderContainer,
   PostDetails,
@@ -16,25 +16,18 @@ import {
   PostInformationContent,
 } from "./styles";
 
-interface PostInformationProps {
-  information: {
-    html_url: string;
-    title: string;
-    user: {
-      login: string;
-    };
-    comments: number;
-    created_at: string;
-    body: string;
-  };
+interface PostInformationData {
+  post: PostData;
 }
 
-export function PostInformation({ information }: PostInformationProps) {
-  const publishedDate = new Date(information.created_at);
-  const formattedPublishedDate = formatDistanceToNow(publishedDate, {
-    addSuffix: true,
-    locale: ptBR,
-  });
+export function PostInformation({ post }: PostInformationData) {
+  let publishedDate: string = "";
+  let postAuthor: string = "";
+
+  try {
+    publishedDate = dateFormatDistanceToNow(post.created_at);
+    postAuthor = post.user.login;
+  } catch (error) {}
 
   return (
     <PostInformationContainer>
@@ -44,27 +37,26 @@ export function PostInformation({ information }: PostInformationProps) {
           VOLTAR
         </NavLink>
 
-        <a href={information.html_url} target="_blank">
+        <a href={post.html_url} target="_blank">
           VER NO GITHUB
           <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
         </a>
       </HeaderContainer>
 
       <PostInformationContent>
-        <h1>{information.title}</h1>
+        <h1>{post.title}</h1>
 
         <PostDetails>
           <h2>
-            <FontAwesomeIcon icon={faGithub} color="#3A536B" />{" "}
-            {information.user.login}
+            <FontAwesomeIcon icon={faGithub} color="#3A536B" /> {postAuthor}
           </h2>
           <h2>
             <FontAwesomeIcon icon={faCalendarDay} color="#3A536B" />{" "}
-            {formattedPublishedDate}
+            {publishedDate}
           </h2>
           <h2>
-            <FontAwesomeIcon icon={faComment} color="#3A536B" />{" "}
-            {information.comments} comentários
+            <FontAwesomeIcon icon={faComment} color="#3A536B" /> {post.comments}{" "}
+            comentários
           </h2>
         </PostDetails>
       </PostInformationContent>

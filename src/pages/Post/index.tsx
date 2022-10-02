@@ -5,17 +5,7 @@ import { api } from "../../lib/axios";
 import { PostInformation } from "./components/PostInformation";
 import { PostContentContainer } from "./styles";
 import ReactMarkdown from "react-markdown";
-
-interface PostData {
-  html_url: string;
-  title: string;
-  user: {
-    login: string;
-  };
-  comments: number;
-  created_at: string;
-  body: string;
-}
+import { PostData } from "../../@types/postInterface";
 
 export function Post() {
   const { postNumber } = useParams();
@@ -34,7 +24,7 @@ export function Post() {
 
   return (
     <div>
-      <PostInformation information={information} />
+      <PostInformation post={information} />
       <PostContentContainer>
         <ReactMarkdown>{information.body}</ReactMarkdown>
       </PostContentContainer>

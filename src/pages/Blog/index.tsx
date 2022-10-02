@@ -1,20 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { repository, username } from "../../data/githubInformation";
 import { api } from "../../lib/axios";
+import { PostData } from "../../@types/postInterface";
 import { PostPreview } from "./components/PostPreview";
 import { Profile } from "./components/Profile";
 import { SearchPublications } from "./components/SearchPublications";
 import { BlogContainer, PostsPreviewContainer } from "./styles";
 
-interface PostsData {
-  created_at: string;
-  title: string;
-  body: string;
-  number: number;
-}
-
 export function Blog() {
-  const [posts, setPosts] = useState<PostsData[]>([]);
+  const [posts, setPosts] = useState<PostData[]>([]);
 
   const fetchPosts = useCallback(
     async (search?: string) => {
