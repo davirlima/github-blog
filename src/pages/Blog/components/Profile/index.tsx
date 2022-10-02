@@ -11,6 +11,7 @@ import {
 import { api } from "../../../../lib/axios";
 import { useCallback, useEffect, useState } from "react";
 import { username } from "../../../../data/githubInformation";
+import { Spinner } from "../../../../components/Spinner";
 
 interface UserInformationData {
   avatar_url: string;
@@ -26,10 +27,12 @@ export function Profile() {
   const [userInformation, setUserInformation] = useState<UserInformationData>(
     {} as UserInformationData
   );
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchUserInformation = useCallback(async () => {
     const response = await api.get(`/users/${username}`);
     setUserInformation(response.data);
+    setIsLoading(false);
   }, [userInformation]);
 
   useEffect(() => {
@@ -38,35 +41,41 @@ export function Profile() {
 
   return (
     <ProfileContainer>
-      <img src={userInformation.avatar_url} />
-      <ProfileContent>
-        <a href={userInformation.html_url} target="_blank">
-          GITHUB
-          <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-        </a>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          <img src={userInformation.avatar_url} />
+          <ProfileContent>
+            <a href={userInformation.html_url} target="_blank">
+              GITHUB
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+            </a>
 
-        <UserDescription>
-          <h1>{userInformation.name}</h1>
-          <p>{userInformation.bio}</p>
-        </UserDescription>
+            <UserDescription>
+              <h1>{userInformation.name}</h1>
+              <p>{userInformation.bio}</p>
+            </UserDescription>
 
-        <UserInformation>
-          <h2>
-            <FontAwesomeIcon icon={faGithub} color="#3A536B" />{" "}
-            {userInformation.login}
-          </h2>
-          {userInformation.company && (
-            <h2>
-              <FontAwesomeIcon icon={faBuilding} color="#3A536B" />{" "}
-              {userInformation.company}
-            </h2>
-          )}
-          <h2>
-            <FontAwesomeIcon icon={faUserGroup} color="#3A536B" />{" "}
-            {userInformation.followers} seguidores
-          </h2>
-        </UserInformation>
-      </ProfileContent>
+            <UserInformation>
+              <h2>
+                <FontAwesomeIcon icon={faGithub} color="#3A536B" />{" "}
+                {userInformation.login}
+              </h2>
+              {userInformation.company && (
+                <h2>
+                  <FontAwesomeIcon icon={faBuilding} color="#3A536B" />{" "}
+                  {userInformation.company}
+                </h2>
+              )}
+              <h2>
+                <FontAwesomeIcon icon={faUserGroup} color="#3A536B" />{" "}
+                {userInformation.followers} seguidores
+              </h2>
+            </UserInformation>
+          </ProfileContent>
+        </>
+      )}
     </ProfileContainer>
   );
 }

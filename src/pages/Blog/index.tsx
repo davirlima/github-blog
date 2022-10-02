@@ -6,9 +6,11 @@ import { PostPreview } from "./components/PostPreview";
 import { Profile } from "./components/Profile";
 import { SearchPublications } from "./components/SearchPublications";
 import { BlogContainer, PostsPreviewContainer } from "./styles";
+import { Spinner } from "../../components/Spinner";
 
 export function Blog() {
   const [posts, setPosts] = useState<PostData[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchPosts = useCallback(
     async (search?: string) => {
@@ -17,8 +19,8 @@ export function Blog() {
         : `/search/issues?q=%20repo:${username}/${repository}`;
 
       const response = await api.get(getParameter);
-
       setPosts(response.data.items);
+      setIsLoading(false);
     },
     [posts]
   );
@@ -34,11 +36,15 @@ export function Blog() {
           quantityOfPublications={posts.length}
           fetchPosts={fetchPosts}
         />
-        <PostsPreviewContainer>
-          {posts.map((post) => {
-            return <PostPreview key={post.created_at} post={post} />;
-          })}
-        </PostsPreviewContainer>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <PostsPreviewContainer>
+            {posts.map((post) => {
+              return <PostPreview key={post.created_at} post={post} />;
+            })}
+          </PostsPreviewContainer>
+        )}
       </BlogContainer>
     </div>
   );
