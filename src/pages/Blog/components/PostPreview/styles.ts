@@ -22,9 +22,6 @@ export const PostsPreviewContainer = styled.div`
     align-items: flex-start;
     justify-content: space-between;
 
-    overflow: hidden;
-    text-overflow: ellipsis;
-
     h1 {
       font-size: ${(props) => props.theme.text["title-medium"]};
       color: ${(props) => props.theme.color["base-title"]};
