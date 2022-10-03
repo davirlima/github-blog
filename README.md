@@ -34,6 +34,7 @@ Aplicação Web de um Blog, onde os posts são puxados das Issues desse reposit�
 
 - styled-components;
 - react-router;
+- axios;
 - fontawesome;
 - date-fns;
 - react-hook-form;
